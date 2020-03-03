@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 
 from sklearn.datasets import load_boston
 
+#  Sources:
+#    - .csv - IA NOTEBOOK #1 | Regresión Lineal y Mínimos Cuadrados Ordinarios | Programando IA: https://www.youtube.com/watch?v=w2RJ1D6kz-o&list=PL-Ogd76BhmcCO4VeOlIH93BMT5A_kKAXp
+#    - .csv - Regresión Lineal y Mínimos Cuadrados Ordinarios | DotCSV: https://www.youtube.com/watch?v=k964_uNn3l0&list=PL-Ogd76BhmcDxef4liOGXGXLL-4h65bs4&index=6
+
 #                      //////////////
 #                      //          //
 #  [X_0] --- [W_0] --- //  NEURON  // --- [Y_0]
