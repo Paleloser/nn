@@ -16,7 +16,7 @@ from sklearn.datasets import load_boston
 #
 #  Y_0 = W_0 * X_0 + B  => Linear equation
 #
-#  Y_0 = W_0 * X_0 + B * 1 => Y = [  1, X_0 ] * [   B] = XW
+#  Y_0 = W_0 * X_0 + B * 1 => Y = [  1, X_0 ] * [   B] = X * W
 #                                               [ W_0]
 
 #  Descr: 
@@ -56,6 +56,8 @@ plt.scatter(X, Y, alpha=0.5)
 #     [  1,    X_1]     (X[0]: [  1,   1, ...,     1])
 #     [  1,    ...]     (X[1]: [X_0, X_1, ..., X_N-1])
 #     [  1,  X_N-1]
+#  
+#  NOTE: we've got to transpose the X from the dataset + ones to get this one.
 X = np.array([np.ones(len(X)), X]).T
 
 #  Now we want to get the least mean squared error, which is: e = (y_o - y_expect)^2
