@@ -64,14 +64,22 @@ plt.scatter(X, Y, alpha=0.5)
 #  NOTE: we've got to transpose the X from the dataset + ones to get this one.
 X = np.array([np.ones(len(X)), X]).T
 
-#  Now we want to get the least mean squared error, which is: e = (y_o - y_expect)^2
+#  Now we want to get the least mean squared error (MSE), which is: e = (y_o - y_expect)^2
 #
-#  (y_o - y_expect)^2 = y_o^2 - 2 * y_o * y_expect + y_expect^2
+#  NOTE: we use the MSE cause it gives us a positive value that decreases faster when it's smaller 
+#  and increases faster when it's bigger.
+#
+#  Given: y_o = w * x + b => Y = WX (where W = [B, W].T AND X = [1, X])
 # 
-#  Given: y_o = w * x + b => Y = WX (where W = [B, W] AND X = [1, X])
-# 
-#  e = (WX)^2 - 2WX + Y^2 -> e = 0 => W = (X^T * X)^-1 * X^T * Y
-B = np.linalg.inv(X.T @ X) @ X.T @ Y
+#  e = 0 => W = (X^T * X)^-1 * X^T * Y
+#
+#  NOTE: the * operator for matrixes in .py is '@'
+W = np.linalg.inv(X.T @ X) @ X.T @ Y
 
-plt.plot([4, 9], [B[0] + B[1] * 4, B[0] + B[1] * 9], c='black')
+#  At this point we have found the best values for the weight and bias of our neuron
+#  so, if we implemented a neuron with this values and gave it an input (the number of rooms 
+#  of a given apt.) it should give us (predict) its belonging output (cost) according to our 
+#  model (linear regression).
+
+plt.plot([4, 9], [W[0] + W[1] * 4, W[0] + W[1] * 9], c='black')
 plt.show()
