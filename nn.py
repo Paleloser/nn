@@ -82,7 +82,7 @@ p = 2  # Dimensions
 X, Y = make_circles(n, factor=0.5, noise=0.05)
 Y = Y[:, np.newaxis]
 
-topology = [p, 16, 1]
+topology = [p, 64, 1]
 nn = create_nn(topology, sig, d_sig)
 
 loss = []
