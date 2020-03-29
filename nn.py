@@ -82,7 +82,7 @@ p = 2  # Dimensions
 X, Y = make_circles(n, factor=0.5, noise=0.05)
 Y = Y[:, np.newaxis]
 
-topology = [p, 4, 8, 1]
+topology = [p, 4, 1]
 nn = create_nn(topology, sig, d_sig)
 
 loss = []
@@ -90,7 +90,7 @@ epochs = 2500
 
 for i in range(epochs):
 
-    train(nn, X, Y, d_mse, lr=0.035)
+    train(nn, X, Y, d_mse, lr=0.02)
 
     # Take a sample of the current trainning status.
     if i % 10 == 0:
