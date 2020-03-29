@@ -72,10 +72,8 @@ def train(nn, X, Y, d_cost, lr = 0.5):
         layer.bias = layer.bias - np.mean(deltas[0], axis=0, keepdims=True) * lr
         layer.weights = layer.weights - a[i].T @ deltas[0] * lr
 
-    return a[-1]
-
 # Dataset initialization
-n = 500  # Number of samples
+n = 500  # Number of dots
 p = 2  # Dimensions
 
 # Below we make 2 circles:
@@ -88,28 +86,28 @@ topology = [p, 4, 8, 1]
 nn = create_nn(topology, sig, d_sig)
 
 loss = []
-n_trains = 1000
-_x0 = []
-_x1 = []
-_Y = []
+epochs = 2500
 
-for i in range(n_trains):
+for i in range(epochs):
 
-    y_i = train(nn, X, Y, d_mse, lr=0.05)
+    train(nn, X, Y, d_mse, lr=0.035)
 
+    # Take a sample of the current trainning status.
     if i % 10 == 0:
+        # 1. Run the NN
+        y_i = run_nn(nn, X)[-1]
+        #2. Sample the error
         loss.append(mse(y_i, Y))
 
-        res = 50
+res = 50
 
-        _x0 = np.linspace(-1.5, 1.5, res)
-        _x1 = np.linspace(-1.5, 1.5, res)
+_x0 = np.linspace(-1.5, 1.5, res)
+_x1 = np.linspace(-1.5, 1.5, res)
+_Y = np.zeros((res, res))
 
-        _Y = np.zeros((res, res))
-
-        for i0, x0 in enumerate(_x0):
-            for i1, x1 in enumerate(_x1):
-                _Y[i0, i1] = run_nn(nn, np.array([[x0, x1]]))[-1][0][0]
+for i0, x0 in enumerate(_x0):
+    for i1, x1 in enumerate(_x1):
+        _Y[i0, i1] = run_nn(nn, np.array([[x0, x1]]))[-1][0][0]
 
 plt.pcolormesh(_x0, _x1, _Y, cmap="coolwarm")
 plt.scatter(X[Y[:, 0] == 0, 0], X[Y[:, 0] == 0, 1], c='skyblue')
