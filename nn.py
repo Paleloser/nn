@@ -94,7 +94,9 @@ for i in range(epochs):
 
     # Take a sample of the current trainning status.
     if i % 10 == 0:
-        # 1. Run the NN
+        # 1. Run the NN (the [-1] in python means the last item ov the array,
+        # note that run_nn returns an array with the ouputs of all layers, as
+        # it is used by training() to do the backpropagation on each layer)
         y_i = run_nn(nn, X)[-1]
         #2. Sample the error
         loss.append(mse(y_i, Y))
