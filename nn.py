@@ -1,6 +1,4 @@
 import numpy as np
-import scipy as sc
-import time
 import matplotlib.pyplot as plt
 
 from sklearn.datasets import make_circles
@@ -112,7 +110,6 @@ for i in range(n_trains):
         for i0, x0 in enumerate(_x0):
             for i1, x1 in enumerate(_x1):
                 _Y[i0, i1] = run_nn(nn, np.array([[x0, x1]]))[-1][0][0]
-
 
 plt.pcolormesh(_x0, _x1, _Y, cmap="coolwarm")
 plt.scatter(X[Y[:, 0] == 0, 0], X[Y[:, 0] == 0, 1], c='skyblue')
