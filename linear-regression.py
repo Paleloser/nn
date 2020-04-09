@@ -20,8 +20,8 @@ from sklearn.datasets import load_boston
 #
 #  Y_0 = W_0 * X_0 + B  => Linear equation
 #
-#  Y_0 = W_0 * X_0 + B * 1 => Y = [  1, X_0 ] * [   B] = X * W
-#                                               [ W_0]
+#  Y_0 = W_0 * X_0 + B * 1 => Y = [  B, W_0 ] * [   1] = W * X
+#                                               [ X_0]
 
 #  Descr: 
 #
