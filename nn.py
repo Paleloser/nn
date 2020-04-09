@@ -75,7 +75,7 @@ def train(nn, X, Y, d_cost, lr = 0.5):
         _W = layer.weights
 
         # Gradient descent:
-        layer.bias = layer.bias - np.mean(deltas[-1], axis=0, keepdims=True) * lr
+        layer.bias = layer.bias - np.mean(deltas[-1]) * lr
         layer.weights = layer.weights - layer_inputs.T @ deltas[-1] * lr
 
 # Dataset initialization
