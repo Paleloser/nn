@@ -67,16 +67,16 @@ def train(nn, X, Y, d_cost, lr = 0.5):
 
         # Last layer backpropagation
         if i == len(nn) - 1:
-            deltas.insert(0, d_cost(layer_outputs, Y) * layer.d_act(layer_outputs))
+            deltas.append(d_cost(layer_outputs, Y) * layer.d_act(layer_outputs))
         # Cost effect for the rest of the layers
         else:
-            deltas.insert(0, deltas[0] @ _W.T * layer.d_act(layer_outputs))
+            deltas.append(deltas[-1] @ _W.T * layer.d_act(layer_outputs))
 
         _W = layer.weights
 
         # Gradient descent:
-        layer.bias = layer.bias - np.mean(deltas[0], axis=0, keepdims=True) * lr
-        layer.weights = layer.weights - layer_inputs.T @ deltas[0] * lr
+        layer.bias = layer.bias - np.mean(deltas[-1], axis=0, keepdims=True) * lr
+        layer.weights = layer.weights - layer_inputs.T @ deltas[-1] * lr
 
 # Dataset initialization
 n = 500  # Number of dots
