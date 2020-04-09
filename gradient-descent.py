@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#  Sources:
+#    .csv - IA NOTEBOOK #3 | Descenso del Gradiente (Gradient Descent) | Programando IA  https://www.youtube.com/watch?v=-_A_AAxqzCg&list=PL-Ogd76BhmcCO4VeOlIH93BMT5A_kKAXp&index=3
+
 # Defines a plane with multiple minimums
 func = lambda th: np.sin((th[0] ** 2) / 2 - (th[1] ** 2) / 4 + 3) * np.cos(2 * th[0] + 1 - np.exp(th[1]))
 

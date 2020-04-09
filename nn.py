@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 
 from sklearn.datasets import make_circles
 
+#  Sources:
+#    .csv - ¿Qué es una Red Neuronal? Parte 3.5 : Las Matemáticas de Backpropagation | DotCSV https://www.youtube.com/watch?v=M5QHwkkHgAA&list=PL-Ogd76BhmcDxef4liOGXGXLL-4h65bs4&index=15
+#    .csv - IA NOTEBOOK #4 | Programando Red Neuronal desde Cero! | Programando IA https://www.youtube.com/watch?v=W8AeOXa_FqU&list=PL-Ogd76BhmcCO4VeOlIH93BMT5A_kKAXp&index=4
+
 class neural_layer():
 
     def __init__(self, n_in, n_n, act, d_act):
@@ -57,7 +61,7 @@ def train(nn, X, Y, d_cost, lr = 0.5):
     # Firstly run the NN
     nn_act_outputs = run_nn(nn, X)
     deltas = []
-    _W = []
+    d_layer = []
 
     # Then do the Backpropagation: evaluate the results according to the expected
     for i in reversed(range(0, len(nn))):
@@ -70,9 +74,10 @@ def train(nn, X, Y, d_cost, lr = 0.5):
             deltas.append(d_cost(layer_outputs, Y) * layer.d_act(layer_outputs))
         # Cost effect for the rest of the layers
         else:
-            deltas.append(deltas[-1] @ _W.T * layer.d_act(layer_outputs))
+            deltas.append(deltas[-1] @ d_layer.T * layer.d_act(layer_outputs))
 
-        _W = layer.weights
+        # f(x) = wx + b => df/dx = w
+        d_layer = layer.weights
 
         # Gradient descent:
         layer.bias = layer.bias - np.mean(deltas[-1]) * lr
