@@ -65,8 +65,10 @@ def train(nn, X, Y, d_cost, lr = 0.5):
         layer_inputs = X if i == 0 else nn_act_outputs[i - 1]
         layer_outputs = nn_act_outputs[i]
 
+        # Last layer backpropagation
         if i == len(nn) - 1:
             deltas.insert(0, d_cost(layer_outputs, Y) * layer.d_act(layer_outputs))
+        # Cost effect for the rest of the layers
         else:
             deltas.insert(0, deltas[0] @ _W.T * layer.d_act(layer_outputs))
 
