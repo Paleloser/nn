@@ -69,9 +69,9 @@ X = np.array([np.ones(len(X)), X]).T
 #  NOTE: we use the MSE cause it gives us a positive value that decreases faster when it's smaller 
 #  and increases faster when it's bigger.
 #
-#  Given: y_o = w * x + b => Y = WX (where W = [B, W].T AND X = [1, X])
+#  Given: y_o = w * x + b => Y = WX (where W = [B, W] AND X = [1, X].T)
 # 
-#  e = 0 => W = (X^T * X)^-1 * X^T * Y
+#  e = 0 => W = (X.T * X)^-1 * X.T * Y
 #
 #  NOTE: the * operator for matrixes in .py is '@'
 W = np.linalg.inv(X.T @ X) @ X.T @ Y
