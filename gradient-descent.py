@@ -17,7 +17,7 @@ for i, x in enumerate(th[0]):
 plt.contourf(th[0], th[1], _Z, res)
 plt.colorbar()
 
-# Random starting x and y coordinates
+# Random starting x and y coordinates T = [x, y]
 T = np.random.random(2) * 4 - 2
 # Delta to calculate the derivative of a function in a point
 delta = 0.001

@@ -34,15 +34,18 @@ def create_nn(topology, act, d_act):
 # to the output layer.
 def run_nn(nn, X):
 
-    pre_act = [None]
-    post_act = [X]
+    act_outputs = []
 
     for i, layer in enumerate(nn):
-        y_i = post_act[-1] @ layer.weights + layer.bias
-        pre_act.append(y_i)
-        post_act.append(layer.act(y_i))
+        layer_input = X
 
-    return post_act
+        if i > 0:
+            layer_input = act_outputs[-1]
+
+        layer_output = layer_input @ layer.weights + layer.bias
+        act_outputs.append(layer.act(layer_output))
+
+    return act_outputs
 
 # Trains the given NN, with the given inputs X and expected outputs Y (therefore
 # a supervised learning). Using the given cost function and learning rate (which
@@ -52,25 +55,26 @@ def run_nn(nn, X):
 def train(nn, X, Y, d_cost, lr = 0.5):
 
     # Firstly run the NN
-    a = run_nn(nn, X)
+    nn_act_outputs = run_nn(nn, X)
     deltas = []
     _W = []
 
     # Then do the Backpropagation: evaluate the results according to the expected
     for i in reversed(range(0, len(nn))):
         layer = nn[i]
-        a_j = a[i + 1]
+        layer_inputs = X if i == 0 else nn_act_outputs[i - 1]
+        layer_outputs = nn_act_outputs[i]
 
         if i == len(nn) - 1:
-            deltas.insert(0, d_cost(a_j, Y) * layer.d_act(a_j))
+            deltas.insert(0, d_cost(layer_outputs, Y) * layer.d_act(layer_outputs))
         else:
-            deltas.insert(0, deltas[0] @ _W.T * layer.d_act(a_j))
+            deltas.insert(0, deltas[0] @ _W.T * layer.d_act(layer_outputs))
 
         _W = layer.weights
 
         # Gradient descent:
         layer.bias = layer.bias - np.mean(deltas[0], axis=0, keepdims=True) * lr
-        layer.weights = layer.weights - a[i].T @ deltas[0] * lr
+        layer.weights = layer.weights - layer_inputs.T @ deltas[0] * lr
 
 # Dataset initialization
 n = 500  # Number of dots
